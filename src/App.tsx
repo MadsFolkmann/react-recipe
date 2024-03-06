@@ -10,6 +10,7 @@ import Home from "./Home";
 import "./App.css";
 import RecipesLayout from "./recipes/RecipesLayout";
 import RequireAuth from "./security/RequireAuth";
+import CategoryForm from "./recipes/CategoryForm";
 
 export default function App() {
   //const auth = useAuth();
@@ -24,10 +25,18 @@ export default function App() {
                   <Route path=":id" element={<Recipe />} />
               </Route>
               <Route
-                  path="/add"
+                  path="/addRecipe"
+                  element={
+                      <RequireAuth roles={["USER", "ADMIN"]}>
+                          <RecipeForm />
+                      </RequireAuth>
+                  }
+              />
+              <Route
+                  path="/addCategory"
                   element={
                       <RequireAuth roles={["ADMIN"]}>
-                          <RecipeForm />
+                          <CategoryForm/>
                       </RequireAuth>
                   }
               />
