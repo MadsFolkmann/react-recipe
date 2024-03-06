@@ -2,7 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import "./RecipesLayout.css";
 import { useEffect, useState } from "react";
 import { Recipe as APIRecipe, getRecipes } from "../services/apiFacade";
-import { useAuth } from "../security/Authprovider";
+import { useAuth } from "../security/AuthProvider";
 
 export default function RecipeList() {
   const [queryString] = useSearchParams();
