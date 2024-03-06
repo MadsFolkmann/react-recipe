@@ -1,5 +1,5 @@
 import { API_URL } from "../settings";
-import  { makeOptions,handleHttpErrors } from "./fetchUtils";
+import { makeOptions, handleHttpErrors } from "./fetchUtils";
 const CATEGORIES_URL = API_URL + "/categories";
 const RECIPE_URL = API_URL + "/recipes";
 const INFO_URL = API_URL + "/info";
@@ -14,6 +14,7 @@ interface Recipe {
   youTube: string;
   ingredients: string;
   source: string;
+  owner: string | null;
 }
 
 interface Category {
@@ -60,7 +61,7 @@ async function addRecipe(newRecipe: Recipe): Promise<Recipe> {
 
 async function addCategory(newCategory: Category): Promise<Category> {
   const method = newCategory.id ? "PUT" : "POST";
-  const options = makeOptions(method, newCategory, true);
+  const options = makeOptions(method, newCategory, true);  
   const URL = newCategory.id ? `${CATEGORIES_URL}/${newCategory.id}` : CATEGORIES_URL;
   return fetch(URL, options).then(handleHttpErrors);
 }

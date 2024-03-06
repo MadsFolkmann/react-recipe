@@ -18,6 +18,7 @@ export function makeOptions(method: string, body: object|null,addToken?: boolean
     //@ts-ignore
     opts.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
   }
+  
   return opts;
 }
 

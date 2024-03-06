@@ -13,6 +13,7 @@ const EMPTY_RECIPE = {
   youTube: "",
   ingredients: "",
   source: "",
+  owner: localStorage.getItem("username") || null,
 };
 
 export default function RecipeForm() {
@@ -49,112 +50,97 @@ export default function RecipeForm() {
   };
 
   return (
-    <>
-      <h2>Recipes Add/Edit/Delete</h2>
-      <form id="recipeForm">
-        <div className="form-group">
-          <label htmlFor="id">ID:</label>
-          <input type="text" id="name" name="name" disabled value={formData.id || ""} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="category">Category:</label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            // @ts-ignore
-            onChange={handleChange}
-            required
-          >
-            {/* Default option */}
-            <option value="">Select a category</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="instructions">Instructions:</label>
-          <textarea
-            id="instructions"
-            name="instructions"
-            rows={4}
-            value={formData.instructions}
-            // @ts-ignore
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="thumb">Thumbnail URL:</label>
-          <input
-            type="text"
-            id="thumb"
-            name="thumb"
-            value={formData.thumb}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="youTube">YouTube URL:</label>
-          <input
-            type="text"
-            id="youTube"
-            name="youTube"
-            value={formData.youTube}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="ingredients">Ingredients:</label>
-          <textarea
-            id="ingredients"
-            name="ingredients"
-            rows={3}
-            value={formData.ingredients}
-            // @ts-ignore
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="source">Source:</label>
-          <input type="text" id="source" name="source" required />
-        </div>
-      </form>
-      <button onClick={handleSubmit} className="recipe-form-btn">
-        Submit
-      </button>
-      <button
-        className="recipe-form-btn"
-        onClick={() => {
-          setFormData({ ...EMPTY_RECIPE });
-        }}
-      >
-        Cancel
-      </button>
-      {formData.id && (
-        <>
-          <button className="recipe-form-btn" onClick={handleDelete}>
-            Delete
+      <>
+          <h2>Recipes Add/Edit/Delete</h2>
+          <form id="recipeForm">
+              <div className="form-group">
+                  <label htmlFor="id">ID:</label>
+                  <input type="text" id="name" name="name" disabled value={formData.id || ""} />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="name">Name:</label>
+                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="category">Category:</label>
+                  <select
+                      id="category"
+                      name="category"
+                      value={formData.category}
+                      // @ts-ignore
+                      onChange={handleChange}
+                      required
+                  >
+                      {/* Default option */}
+                      <option value="">Select a category</option>
+                      {categories.map((category, index) => (
+                          <option key={index} value={category}>
+                              {category}
+                          </option>
+                      ))}
+                  </select>
+              </div>
+              <div className="form-group">
+                  <label htmlFor="instructions">Instructions:</label>
+                  <textarea
+                      id="instructions"
+                      name="instructions"
+                      rows={4}
+                      value={formData.instructions}
+                      // @ts-ignore
+                      onChange={handleChange}
+                      required
+                  ></textarea>
+              </div>
+              <div className="form-group">
+                  <label htmlFor="thumb">Thumbnail URL:</label>
+                  <input type="text" id="thumb" name="thumb" value={formData.thumb} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="youTube">YouTube URL:</label>
+                  <input type="text" id="youTube" name="youTube" value={formData.youTube} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="ingredients">Ingredients:</label>
+                  <textarea
+                      id="ingredients"
+                      name="ingredients"
+                      rows={3}
+                      value={formData.ingredients}
+                      // @ts-ignore
+                      onChange={handleChange}
+                      required
+                  ></textarea>
+              </div>
+              <div className="form-group">
+                  <label htmlFor="source">Source:</label>
+                  <input type="text" id="source" name="source" required />
+              </div>
+                <div className="form-group">
+                  <label htmlFor="owner">Owner:</label>
+                  <input type="text" id="name" name="name" disabled value={localStorage.getItem("username") ?? ""} />
+                </div>
+          </form>
+          <button onClick={handleSubmit} className="recipe-form-btn">
+              Submit
           </button>
-        </>
-      )}
+          <button
+              className="recipe-form-btn"
+              onClick={() => {
+                  setFormData({ ...EMPTY_RECIPE });
+              }}
+          >
+              Cancel
+          </button>
+          {formData.id && (
+              <>
+                  <button className="recipe-form-btn" onClick={handleDelete}>
+                      Delete
+                  </button>
+              </>
+          )}
 
-      <p>{JSON.stringify(formData)}</p>
-    </>
+          <p>{JSON.stringify(formData)}</p>
+      </>
   );
 }
